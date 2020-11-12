@@ -17,7 +17,15 @@ baseulr1: string = "http://localhost:8080/api/users/"
   list(): Observable <User[]> {
 
     return this.http.get(`${this.baseulr1}`) as Observable<User[]>;
+
   
+  }
+
+  get(id: number): Observable<User>{
+    return this.http.get(`${this.baseulr1}${id}`) as Observable<User>;
+  }
+  change(user:User): Observable<User>{
+    return this.http.put(`${this.baseulr1}${user.id}`, user) as Observable<User>;
   }
   
 }
