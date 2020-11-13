@@ -1,30 +1,32 @@
 <div>
-    <h1>User List</h1>
+    <div class ="h1">User List |
+<input [(ngModel)]="searchCriteria" type ="text" placeholder="Search">
+    </div>
     <table [ngClass]= "tableStyle">
     
   <tr>
     
-    <th>ID</th>
-    <th>UserName</th>
-    <th>Password</th>
-    <th>FirstName</th>
-    <th>LastName</th>
+    <th><a (click) ="sortColumn('id')"class= "btn btn-link">ID</a></th>
+    <th><a (click) ="sortColumn('userName')"class="btn btn-link">UserName</a></th>
+    <th><a (click) ="sortColumn('password')"class="btn btn-link">Password</a></th>
+    <th><a (click) ="sortColumn('firstName')"class="btn btn-link">FirstName</a></th>
+    <th><a (click) ="sortColumn('lastName')"class="btn btn-link">LastName</a></th>
     <th>PhoneNumber</th>
     <th>Email</th>
     <th>Reviewer?</th>
     <th>Admin?</th>
     <th>Actions</th>
   </tr>
-  <tr *ngFor="let user of users">
+  <tr *ngFor="let user of users | userSearch:searchCriteria | sort:sortCriteria:ascSequence">
     <td>{{ user.id }}</td>
     <td>{{ user.userName }}</td>
-    <td>{{ user.password }}</td>
+    <td>{{ user.password | mask }}</td>
     <td>{{ user.firstName }}</td>
     <td>{{ user.lastName }}</td>
     <td>{{ user.phoneNumber }}</td>
     <td>{{ user.email }}</td>
-    <td>{{ user.reviewer? "Yes":"No" }}</td>
-    <td>{{ user.admin? "Yes":"No" }}</td>
+    <td>{{ user.reviewer | bool }}</td>
+    <td>{{ user.admin | bool }}</td>
     <td>
       <a routerLink="/users/edit/{{user.id}}">Edit</a>
     </td>
